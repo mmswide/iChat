@@ -1,0 +1,108 @@
+//
+   Created by Sylvanus on 5/12/16.
+
+extends sidebarLayout
+
+block detail
+    .container-fluid.main-content
+        .page-title(style="padding: 20px 20px 0")
+            h1 Edit Profile
+        .row
+            .col-lg-12
+                .widget-container.fluid-height.clearfix
+                    h1(style="padding: 10px 30px") Basic
+                    .widget-content.padded
+                        form.form-horizontal(method="POST" action="/profile/editProfile")
+                            .form-group
+                                label.control-label.col-md-3 Email
+                                .col-md-5
+                                    p.form-control-static #{email}
+                                .col-md-4
+                            .form-group
+                                label.control-label.col-md-3 Nickname
+                                .col-md-5
+                                    input.form-control(name="username" value=username type="text")
+                                .col-md-4
+                            .form-group
+                                label.control-label.col-md-3 Gender
+                                .col-md-5
+                                    label.radio-inline
+                                        if gender == "male"
+                                            input(name="gender" type="radio" checked value="male")
+                                        else
+                                            input(name="gender" type="radio" value="male")
+                                        span Male
+                                    label.radio-inline
+                                        if gender == "female"
+                                            input(name="gender" type="radio" checked value="femlae")
+                                        else
+                                            input(name="gender" type="radio" value="female")
+                                        span Female
+                                .col-md-4
+                            .form-group
+                                label.control-label.col-md-3 Birthday
+                                .col-md-5
+                                    .input-group.date.datepicker(data-date-autoclose="true" data-date-format="mm/dd/yyyy" data-date-start-view="2")
+                                        input.form-control(name="birthday" value=birthday type="text")
+                                        span.input-group-addon
+                                            i.icon-calendar
+                                .col-md-4
+                            .form-group
+                                label.control-label.col-md-3 Location
+                                .col-md-5
+                                    input.form-control(name="location" value=location type="text")
+                                .col-md-4
+                            .form-group
+                                label.control-label.col-md-3 What's up...
+                                .col-md-5
+                                    textarea.form-control(name="whatsup" rows="3") #{whatsup}
+                                .col-md-4
+                            .col-md-6
+                            .col-md-3
+                                button.btn.btn-default(type="button") Reset
+                                button.btn.btn-primary(type="submit") Save
+                            .col-md-3
+
+        .row
+            .col-lg-12
+                .widget-container.fluid-height.clearfix
+                    h1(style="padding: 10px 30px") Password
+                    .widget-content.padded
+                        form.form-horizontal(method="POST" action="/profile/changePassword")
+                            .form-group
+                                label.control-label.col-md-3 old password
+                                .col-md-5
+                                    input.form-control(name="oldpwd" type="password")
+                            .form-group
+                                label.control-label.col-md-3 new password
+                                .col-md-5
+                                    input.form-control(name="newpwd1" type="password")
+                            .form-group
+                                label.control-label.col-md-3 confirm password
+                                .col-md-5
+                                    input.form-control(name="newpwd2" type="password")
+                            .col-md-7
+                            .col-md-2
+                                button.btn.btn-primary(type="submit") Save
+        .row
+            .col-lg-12
+                .widget-container.fluid-height.clearfix
+                    h1(style="padding: 10px 30px") Avatar
+                    .widget-content.padded
+                        form.form-horizontal(method="POST" enctype="multipart/form-data" action="/api/uploadAvatar")
+                            .form-group
+                                label.control-label.col-md-3 Avatar
+                                .col-md-5
+                                    .fileupload.fileupload-new(data-provides="fileupload")
+                                        .fileupload-new.img-thumbnail(style="width: 150px; height: 150px;")
+                                            img(src="http://www.placehold.it/150x150/EFEFEF/AAAAAA&amp;text=no+image")
+                                        .fileupload-preview.fileupload-exists.img-thumbnail(style="width: 150px; max-height: 150px")
+                                        div
+                                            span.btn.btn-primary.btn-file
+                                                span.fileupload-new Select image
+                                                span.fileupload-exists Change
+                                                input(type="file" name="avatar")
+                                            a.btn.btn-default.fileupload-exists(data-dismiss="fileupload" href="#") Remove
+                            .col-md-7
+                            .col-md-2
+                                button.btn.btn-primary(type="submit") Save

@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  p#self Welcome, #{ID}
+  input#fromID(placeholder="fromID" type="text")
+  input#toID(placeholder="toID" type="text")
+  input#msg(placeholder="message" type="text")
+  button#send send
+  br
+  ul#talk
+
+  script(src="https://cdn.socket.io/socket.io-1.4.5.js")
+  script.
+    var socket = io();
+    $('button#send').click(function () {
+      socket.emit('chat', {from: $('#fromID').val(), to: $('#toID').val(), text: $('#msg').val()});
+      $('#toID').val('');
+      $('#msg').val('');
+      return false;
+    });
+    socket.on('chat', function (msg) {
+      $('#talk').append($('<li>').text(msg.name+': '+msg.text));
+    });
+

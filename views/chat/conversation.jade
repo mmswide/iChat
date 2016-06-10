@@ -1,0 +1,43 @@
+//
+   Created by Sylvanus on 3/23/16.
+
+extends sidebarLayout
+
+block detail
+    .row(style="margin: 0px")
+        .col-lg-12(style="padding: 0px")
+            .widget-container.scrollable.chat.chat-page
+                .contact-list
+                    .heading.media
+                        .media-left(style="font-size: 24px")
+                            i.icon-comments
+                        .media-body Chats <br>
+                            small 20 conversations
+                    ul#chatList
+                        each chat in chats
+                            li.chatListItem(id="_chat__"+chat)
+                                a.media(href="#")
+                                    .media-left.media-middle
+                                        i.icon-remove.removeChat(style="margin: 0")
+                                    .media-left
+                                        img.chatAvatar(width="40" height="40")
+                                    .media-body
+                                        .media-heading.chatName
+                                        small.chatMessage
+                                    .media-right.media-middle(style="padding-right: 16px")
+                                        small.chatTime
+                                        span.badge.unread
+                .heading.media#chatHeading
+                    .media-left
+                        img.img-circle#chatingAvatar(width="45" height="45")
+                    .media-body
+                        .media-heading#chatingName
+                        small#chatingWhatsup あたしの上には太阳なんかなかった。いつも夜。でも暗くはなかった。太阳に代わるものがあったから。
+                .widget-content.padded#chatContent(style="height: 620px")
+                    ul#chatingContent
+                .post-message#chatSend
+                    input.form-control#content(placeholder="Write your message here..." type="text")
+                    input#submitMessage(type="submit" value="Send")
+                #chatValidation
+                    ul.list-unstyled#requests
+

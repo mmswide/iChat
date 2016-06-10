@@ -1,0 +1,101 @@
+//
+   Created by Sylvanus on 4/3/16.
+
+extends sidebarLayout
+
+block detail
+    .modal.fade#addModal(tabindex="-1" role="dialog" aria-labelledby="addModalLabel")
+        .modal-dialog.modal-sm(role="document")
+            .modal-content
+                .modal-header
+                    h4.modal-title Add a Friend/New Group
+                .modal-body
+                    ul.nav.nav-tabs
+                        li.active#addFriendNav(role="presentation")
+                            a(href="#") Friend
+                        li#addGroupNav(role="presentation")
+                            a(href="#") Group
+                form#addFriend
+                    .modal-body(style="padding: 10px 30px")
+                        .form-group
+                            label.control-label Add a friend by name or email
+                            input.form-control#requestID(type="text")
+                        .form-group
+                            label.control-label Message
+                            input.form-control#requestMessage(type="text")
+                    .modal-footer(style="padding: 0 30px 20px")
+                        button.btn.btn-default(type="button" data-dismiss="modal") Cancel
+                        button.btn.btn-primary#submitNewFriend(type="button" data-dismiss="modal") Add
+                form#addGroup(hidden)
+                    .modal-body(style="padding: 10px 30px")
+                        .form-group
+                            label.control-label New Group
+                            input.form-control(name="newGroup" type="text")
+                    .modal-footer(style="padding: 0 30px 20px")
+                        button.btn.btn-default(type="button" data-dismiss="modal") Cancel
+                        button.btn.btn-primary#submitNewGroup(type="button" data-dismiss="modal") Add
+    .row(style="margin: 0px")
+        .col-lg-12(style="padding: 0px")
+            .widget-container.scrollable.chat.chat-page
+                .contact-list
+                    .heading.media
+                        .media-left
+                            span.glyphicon.glyphicon-user(style="font-size: 24px")
+                        .media-body Contacts <br>
+                            small 100 friends
+                        .media-right
+                            button#add(type="button" hidden data-toggle="modal" data-target="#addModal")
+                            i.icon-plus#addBtn
+                    ul#group
+                        each itemGroup in friends
+                            - var item = itemGroup.group;
+                            li
+                                a.media(href="#"+item data-toggle="collapse")
+                                    .media-left.media-middle
+                                        span.caret
+                                    .media-body #{item}
+                                .collapse(id=item)
+                                    ul.list-group(id="_group__"+item)
+                                        each itemFriend in itemGroup.items
+                                            li.list-group-item(id="_friend__"+itemFriend)
+                                                a.media(href="#")
+                                                    .media-left
+                                                        img.friendAvatar(width="40" height="40")
+                                                    .media-body
+                                                        .media-heading.friendName
+                                                        small.friendWhatsup
+                .widget-content.padded(style="height: 750px")
+                    #friendInfo
+                        div(style="margin: 80px 0 40px")
+                            center
+                                img.img-circle#friendAvatar(width="160" height="160")
+                        h2.text-center#friendNickname
+                        h5.text-center#friendEmail
+                        p#friendWhatsup(style="padding: 10px 250px")
+                        center
+                            form.form-inline#changeGroup(style="padding: 0 0 20px")
+                                .form-group
+                                    label.control-label Group&nbsp;
+                                    select.form-control.input-sm#selectGroup
+                                        each group in groups
+                                            option(value=group) #{group}
+                                    span &nbsp;&nbsp;
+                                button.btn.btn-default.input-sm#submitChangeGroup(style="margin: 0") change
+                        div(style="padding: 10px 300px")
+                            table
+                                tr
+                                    td.text-right Gender
+                                    td &nbsp &nbsp
+                                    td#friendGender
+                                tr
+                                    td.text-right Birthday
+                                    td &nbsp &nbsp
+                                    td#friendBirthday
+                                tr
+                                    td.text-right Location
+                                    td &nbsp &nbsp
+                                    td#friendLocation
+                        br
+                        center
+                            button.btn.btn-info#submitChat Send Message
+                            button.btn.btn-danger#submitDelFriend Delete Contact
